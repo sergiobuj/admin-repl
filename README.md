@@ -10,6 +10,8 @@ Github Access key with read/write permissions for organizations.
 
 ## Start
 ```common-lisp
+(setf github:*username* "your-github-username")
+(setf github:*password* "your-github-access-token") ;; access token, not the login password
 (ghrepl:start-repl "your-github-organization-name")
 ```
 
