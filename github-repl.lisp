@@ -163,3 +163,98 @@
      for i from 0 below (length plist)
      collect (list i (numberp (position i selection)) (getf (nth i plist) :name)))))
 
+;; (defun load-repos (org)
+;;   (reset-repos)
+;;   (setf *repos* (all-repos org 1))
+;;   (length *repos*))
+
+;; (defun load-teams (org)
+;;   (setf *teams* (all-teams org 1))
+;;   (length *teams*))
+
+;; (defun authorized-request (url)
+;;   (multiple-value-list (drakma:http-request url :basic-authorization *auth*)))
+
+;; (defun repos (owner params)
+;;   (let ((url (format nil "~a/orgs/~a/repos?~a" +github-api+ owner params)))
+;;     (authorized-request url)))
+
+;; (defun fetch-all-repos (org page)
+;;   (let ((repos (parsed-repos org (format nil "page=~d" page))))
+;;     (cond ((= 0 (length repos)) '())
+;;           (t (apply #'append (list repos (fetch-all-repos org (incf page))))))))
+
+;; (defun teams (org params)
+;;   (let ((url (format nil "~a/orgs/~a/teams?~a" +github-api+ org params)))
+;;     (authorized-request url)))
+
+;; (defun all-teams (org page)
+;;   (let ((resource-page (fetch-teams org `(:page ,(write-to-string page)))))
+;;     (if (= (length resource-page) 0)
+;;       '()
+;;       (apply #'append (list resource-page (all-teams org (incf page)))))))
+;;
+;; (defun all-repos (org page)
+;;   (let ((resource-page (fetch-repos org `(:page ,(write-to-string page)))))
+;;     (if (= (length resource-page) 0)
+;;       '()
+;;       (apply #'append (list resource-page (all-repos org (incf page)))))))
+
+;; (defun parsed-repos (org params)
+;;   (yason:parse (flexi-streams:octets-to-string (car (repos org params)))))
+
+;;(defun select-repos (repos selected)
+;;  (let ((current-selection (set-plist-selection repos selected)))
+;;    (format t "~:{~2d [~:[ ~;*~]] ~a~%~}" current-selection)
+;;    (let ((selection (read-line)))
+;;      (cond ((or (equal "quit" selection) (equal "q" selection)) selected)
+;;            (t (let* ((parsed-input understand-selection selection)
+;;                      (updated-selection (remove-if #'(lambda (x) (numberp (position x parsed-input))) selected)))
+;;                 --code--))
+;;            (t (select-repos repos (append selected (understand-selection selection))))))))
+
+;;(defun select-repos1 (repos selected)
+;;  (let ((current-selection (set-plist-selection repos selected)))
+;;    (format t "~:{~2d [~:[ ~;*~]] ~a~%~}" current-selection)
+;;    (let ((selection (read-line)))
+;;      (cond ((or (equal "quit" selection) (equal "q" selection)) selected)
+;;            (t (select-repos repos (append selected (understand-selection selection))))))))
+
+;;(defun print-repos-selected (repos selection)
+;;  (let ((hash-selection ())
+;;        (named-repos (mapcar (lambda (h) (gethash "name" h)) repos))
+;;        (indexed-repos (loop for i from 0 to (length repos) collect )))))
+
+;;(defun select-repos (selected)
+;;    (let ((selection (read-line)))
+;;        (cond ((or (equal "quit" selection) (equal "q" selection)) selected)
+;;          (t (progn (format t "selection: '~a and ~a'~%" selected selection)
+;;                    (select-repos (append selected (list selection))))))))
+
+;; (let ((objs (loop for i from 0 to 10 collect `(,i ,(nth (random 2) '(t nil)) a))))(format t "~:{~2d [~:[ ~;*~]] ~a~%~}" objs)(format t "~a" objs))
+
+;;(format nil "~%Ride Repos~{~&|#[ ] ~a ~35T#[ ] ~a ~70T#[ ] ~a~105T|~}" (mapcar (lambda (h) (gethash "name" h)) github-repl:*repos*))
+
+;;(defun all-ride-repos ()
+;;  (loop until ()))
+
+;;(defun ride-repos ()
+;;  (let ((result (repos "ride")))
+;;    (loop until)
+;;    (yason:parse (flexi-streams:octets-to-string (car result)))
+;;    ))
+
+;;(defun hi (site)
+;;  (drakma:http-request site))
+
+;;(let ((result nil))
+;;  (loop with page = 1 do (setf result (yason:parse (flexi-streams:octets-to-string (car (github-repl:repos "ride" (format nil "page=~d" page)))))) until (= 0 (length result))))
+
+;;(defun all-ride-repos ()
+;;  (let ((result nil))
+;;    (apply #'append
+;;           (loop with page = 1
+;;                 do (setf result (parsed-repos (format nil "page=~d" page)))
+;;                 (incf page)
+;;                 until (= 0 (length result))
+;;                 collect result))))
